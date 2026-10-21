@@ -1,0 +1,40 @@
+{
+ "by_language": {
+  "English": {
+   "decisions": 55,
+   "accuracy": 0.927
+  },
+  "Tanglish": {
+   "decisions": 22,
+   "accuracy": 0.682
+  },
+  "Tamil script": {
+   "decisions": 18,
+   "accuracy": 0.889
+  }
+ },
+ "by_question": {
+  "message_kind": {
+   "decisions": 23,
+   "accuracy": 1.0
+  },
+  "in_scope": {
+   "decisions": 24,
+   "accuracy": 0.917
+  },
+  "district_grounded": {
+   "decisions": 28,
+   "accuracy": 0.786
+  },
+  "crop_grounded": {
+   "decisions": 20,
+   "accuracy": 0.75
+  }
+ },
+ "overall": {
+  "decisions": 95,
+  "requests": 40,
+  "accuracy": 0.863,
+  "median_request_ms": 3580
+ }
+}

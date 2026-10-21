@@ -1,0 +1,1423 @@
+{
+ "decider_model": "strands-decider-2b-hobson-v19",
+ "rows": [
+  {
+   "i": 0,
+   "expected": {
+    "message_kind": "request",
+    "in_scope": "yes",
+    "district_grounded": "yes",
+    "crop_grounded": "yes"
+   },
+   "decider": {
+    "message_kind": {
+     "label": "request",
+     "confidence": 0.761
+    },
+    "in_scope": {
+     "label": "yes",
+     "confidence": 0.8513
+    },
+    "district_grounded": {
+     "label": "yes",
+     "confidence": 0.6884
+    },
+    "crop_grounded": {
+     "label": "yes",
+     "confidence": 0.7485
+    }
+   },
+   "decider_ms": 6782.603700004984,
+   "decider_server_ms": 5840.6,
+   "llm": {
+    "message_kind": {
+     "label": "request",
+     "confidence": 1.0
+    },
+    "in_scope": {
+     "label": "yes",
+     "confidence": 1.0
+    },
+    "district_grounded": {
+     "label": "yes",
+     "confidence": 1.0
+    },
+    "crop_grounded": {
+     "label": "yes",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 3268.6771000007866,
+   "llm_cost": 0.0017472
+  },
+  {
+   "i": 1,
+   "expected": {
+    "message_kind": "request",
+    "in_scope": "yes",
+    "district_grounded": "no",
+    "crop_grounded": "no"
+   },
+   "decider": {
+    "message_kind": {
+     "label": "request",
+     "confidence": 0.8085
+    },
+    "in_scope": {
+     "label": "yes",
+     "confidence": 0.8578
+    },
+    "district_grounded": {
+     "label": "no",
+     "confidence": 0.5584
+    },
+    "crop_grounded": {
+     "label": "no",
+     "confidence": 0.6337
+    }
+   },
+   "decider_ms": 6764.764999999898,
+   "decider_server_ms": 5624.8,
+   "llm": {
+    "message_kind": {
+     "label": "request",
+     "confidence": 0.9
+    },
+    "in_scope": {
+     "label": "yes",
+     "confidence": 0.9
+    },
+    "district_grounded": {
+     "label": "no",
+     "confidence": 0.9
+    },
+    "crop_grounded": {
+     "label": "no",
+     "confidence": 0.9
+    }
+   },
+   "llm_ms": 3141.0085999959847,
+   "llm_cost": 0.0016456
+  },
+  {
+   "i": 2,
+   "expected": {
+    "message_kind": "request",
+    "district_grounded": "yes",
+    "crop_grounded": "no"
+   },
+   "decider": {
+    "message_kind": {
+     "label": "request",
+     "confidence": 0.8769
+    },
+    "district_grounded": {
+     "label": "yes",
+     "confidence": 0.689
+    },
+    "crop_grounded": {
+     "label": "no",
+     "confidence": 0.5664
+    }
+   },
+   "decider_ms": 5106.5162000013515,
+   "decider_server_ms": 4284.7,
+   "llm": {
+    "message_kind": {
+     "label": "request",
+     "confidence": 0.95
+    },
+    "district_grounded": {
+     "label": "yes",
+     "confidence": 1.0
+    },
+    "crop_grounded": {
+     "label": "no",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 3333.387800012133,
+   "llm_cost": 0.0015496
+  },
+  {
+   "i": 3,
+   "expected": {
+    "district_grounded": "no",
+    "crop_grounded": "yes"
+   },
+   "decider": {
+    "district_grounded": {
+     "label": "no",
+     "confidence": 0.5087
+    },
+    "crop_grounded": {
+     "label": "yes",
+     "confidence": 0.6542
+    }
+   },
+   "decider_ms": 3791.0900999995647,
+   "decider_server_ms": 2881.3,
+   "llm": {
+    "district_grounded": {
+     "label": "no",
+     "confidence": 1.0
+    },
+    "crop_grounded": {
+     "label": "yes",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 3353.8144000049215,
+   "llm_cost": 0.0013112
+  },
+  {
+   "i": 4,
+   "expected": {
+    "message_kind": "request",
+    "district_grounded": "yes",
+    "crop_grounded": "yes"
+   },
+   "decider": {
+    "message_kind": {
+     "label": "request",
+     "confidence": 0.7389
+    },
+    "district_grounded": {
+     "label": "yes",
+     "confidence": 0.577
+    },
+    "crop_grounded": {
+     "label": "yes",
+     "confidence": 0.5359
+    }
+   },
+   "decider_ms": 5922.807700000703,
+   "decider_server_ms": 4688.6,
+   "llm": {
+    "message_kind": {
+     "label": "request",
+     "confidence": 1.0
+    },
+    "district_grounded": {
+     "label": "yes",
+     "confidence": 1.0
+    },
+    "crop_grounded": {
+     "label": "yes",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 3346.542100000079,
+   "llm_cost": 0.0016016
+  },
+  {
+   "i": 5,
+   "expected": {
+    "in_scope": "yes",
+    "district_grounded": "yes",
+    "crop_grounded": "yes"
+   },
+   "decider": {
+    "in_scope": {
+     "label": "yes",
+     "confidence": 0.8256
+    },
+    "district_grounded": {
+     "label": "yes",
+     "confidence": 0.682
+    },
+    "crop_grounded": {
+     "label": "yes",
+     "confidence": 0.7147
+    }
+   },
+   "decider_ms": 3987.872300000163,
+   "decider_server_ms": 3204.0,
+   "llm": {
+    "in_scope": {
+     "label": "yes",
+     "confidence": 1.0
+    },
+    "district_grounded": {
+     "label": "yes",
+     "confidence": 1.0
+    },
+    "crop_grounded": {
+     "label": "yes",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 2511.3381999981357,
+   "llm_cost": 0.0013984000000000002
+  },
+  {
+   "i": 6,
+   "expected": {
+    "message_kind": "request",
+    "in_scope": "yes",
+    "district_grounded": "yes"
+   },
+   "decider": {
+    "message_kind": {
+     "label": "request",
+     "confidence": 0.7641
+    },
+    "in_scope": {
+     "label": "yes",
+     "confidence": 0.9089
+    },
+    "district_grounded": {
+     "label": "yes",
+     "confidence": 0.6844
+    }
+   },
+   "decider_ms": 5392.406099999789,
+   "decider_server_ms": 4428.6,
+   "llm": {
+    "message_kind": {
+     "label": "request",
+     "confidence": 1.0
+    },
+    "in_scope": {
+     "label": "yes",
+     "confidence": 1.0
+    },
+    "district_grounded": {
+     "label": "yes",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 3261.4077999896836,
+   "llm_cost": 0.0015480000000000001
+  },
+  {
+   "i": 7,
+   "expected": {
+    "in_scope": "yes",
+    "district_grounded": "no"
+   },
+   "decider": {
+    "in_scope": {
+     "label": "yes",
+     "confidence": 0.7801
+    },
+    "district_grounded": {
+     "label": "no",
+     "confidence": 0.5773
+    }
+   },
+   "decider_ms": 3771.800799993798,
+   "decider_server_ms": 2816.2,
+   "llm": {
+    "in_scope": {
+     "label": "yes",
+     "confidence": 1.0
+    },
+    "district_grounded": {
+     "label": "no",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 2576.2479999975767,
+   "llm_cost": 0.0011688000000000002
+  },
+  {
+   "i": 8,
+   "expected": {
+    "message_kind": "request",
+    "district_grounded": "yes",
+    "crop_grounded": "yes"
+   },
+   "decider": {
+    "message_kind": {
+     "label": "off_topic",
+     "confidence": 0.5074
+    },
+    "district_grounded": {
+     "label": "yes",
+     "confidence": 0.6071
+    },
+    "crop_grounded": {
+     "label": "no",
+     "confidence": 0.5512
+    }
+   },
+   "decider_ms": 5327.6025999948615,
+   "decider_server_ms": 4536.4,
+   "llm": {
+    "message_kind": {
+     "label": "request",
+     "confidence": 1.0
+    },
+    "district_grounded": {
+     "label": "yes",
+     "confidence": 1.0
+    },
+    "crop_grounded": {
+     "label": "no",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 2591.7075000033947,
+   "llm_cost": 0.0016632
+  },
+  {
+   "i": 9,
+   "expected": {
+    "message_kind": "request",
+    "district_grounded": "yes",
+    "crop_grounded": "yes"
+   },
+   "decider": {
+    "message_kind": {
+     "label": "request",
+     "confidence": 0.6058
+    },
+    "district_grounded": {
+     "label": "yes",
+     "confidence": 0.5076
+    },
+    "crop_grounded": {
+     "label": "no",
+     "confidence": 0.5087
+    }
+   },
+   "decider_ms": 5378.272200003266,
+   "decider_server_ms": 4469.6,
+   "llm": {
+    "message_kind": {
+     "label": "request",
+     "confidence": 1.0
+    },
+    "district_grounded": {
+     "label": "yes",
+     "confidence": 1.0
+    },
+    "crop_grounded": {
+     "label": "yes",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 2766.4631999941776,
+   "llm_cost": 0.0015512000000000002
+  },
+  {
+   "i": 10,
+   "expected": {
+    "in_scope": "yes",
+    "district_grounded": "no",
+    "crop_grounded": "no"
+   },
+   "decider": {
+    "in_scope": {
+     "label": "yes",
+     "confidence": 0.8894
+    },
+    "district_grounded": {
+     "label": "no",
+     "confidence": 0.6253
+    },
+    "crop_grounded": {
+     "label": "no",
+     "confidence": 0.6924
+    }
+   },
+   "decider_ms": 4464.57699999155,
+   "decider_server_ms": 3483.0,
+   "llm": {
+    "in_scope": {
+     "label": "yes",
+     "confidence": 1.0
+    },
+    "district_grounded": {
+     "label": "no",
+     "confidence": 1.0
+    },
+    "crop_grounded": {
+     "label": "no",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 3507.1159999934025,
+   "llm_cost": 0.0016496000000000002
+  },
+  {
+   "i": 11,
+   "expected": {
+    "message_kind": "request",
+    "in_scope": "yes",
+    "district_grounded": "yes"
+   },
+   "decider": {
+    "message_kind": {
+     "label": "request",
+     "confidence": 0.5893
+    },
+    "in_scope": {
+     "label": "yes",
+     "confidence": 0.8105
+    },
+    "district_grounded": {
+     "label": "yes",
+     "confidence": 0.5372
+    }
+   },
+   "decider_ms": 5315.7772999984445,
+   "decider_server_ms": 4553.5,
+   "llm": {
+    "message_kind": {
+     "label": "request",
+     "confidence": 1.0
+    },
+    "in_scope": {
+     "label": "yes",
+     "confidence": 1.0
+    },
+    "district_grounded": {
+     "label": "yes",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 2944.4306999939727,
+   "llm_cost": 0.0015552000000000003
+  },
+  {
+   "i": 12,
+   "expected": {
+    "in_scope": "yes",
+    "district_grounded": "yes",
+    "crop_grounded": "yes"
+   },
+   "decider": {
+    "in_scope": {
+     "label": "yes",
+     "confidence": 0.8944
+    },
+    "district_grounded": {
+     "label": "yes",
+     "confidence": 0.6336
+    },
+    "crop_grounded": {
+     "label": "yes",
+     "confidence": 0.6444
+    }
+   },
+   "decider_ms": 4289.1836000053445,
+   "decider_server_ms": 3498.0,
+   "llm": {
+    "in_scope": {
+     "label": "yes",
+     "confidence": 1.0
+    },
+    "district_grounded": {
+     "label": "yes",
+     "confidence": 1.0
+    },
+    "crop_grounded": {
+     "label": "yes",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 2943.215899998904,
+   "llm_cost": 0.0014088000000000002
+  },
+  {
+   "i": 13,
+   "expected": {
+    "message_kind": "greeting",
+    "in_scope": "yes"
+   },
+   "decider": {
+    "message_kind": {
+     "label": "greeting",
+     "confidence": 0.5489
+    },
+    "in_scope": {
+     "label": "yes",
+     "confidence": 0.7636
+    }
+   },
+   "decider_ms": 4292.938999991748,
+   "decider_server_ms": 3143.5,
+   "llm": {
+    "message_kind": {
+     "label": "greeting",
+     "confidence": 1.0
+    },
+    "in_scope": {
+     "label": "yes",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 2594.79130001273,
+   "llm_cost": 0.0011752000000000002
+  },
+  {
+   "i": 14,
+   "expected": {
+    "message_kind": "request",
+    "in_scope": "yes",
+    "district_grounded": "yes",
+    "crop_grounded": "yes"
+   },
+   "decider": {
+    "message_kind": {
+     "label": "request",
+     "confidence": 0.6106
+    },
+    "in_scope": {
+     "label": "yes",
+     "confidence": 0.9031
+    },
+    "district_grounded": {
+     "label": "yes",
+     "confidence": 0.5757
+    },
+    "crop_grounded": {
+     "label": "yes",
+     "confidence": 0.5841
+    }
+   },
+   "decider_ms": 6672.690799998236,
+   "decider_server_ms": 5817.6,
+   "llm": {
+    "message_kind": {
+     "label": "request",
+     "confidence": 1.0
+    },
+    "in_scope": {
+     "label": "yes",
+     "confidence": 1.0
+    },
+    "district_grounded": {
+     "label": "yes",
+     "confidence": 1.0
+    },
+    "crop_grounded": {
+     "label": "yes",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 2840.0428000022657,
+   "llm_cost": 0.0017376000000000002
+  },
+  {
+   "i": 15,
+   "expected": {
+    "message_kind": "request",
+    "district_grounded": "yes",
+    "crop_grounded": "yes"
+   },
+   "decider": {
+    "message_kind": {
+     "label": "request",
+     "confidence": 0.4911
+    },
+    "district_grounded": {
+     "label": "no",
+     "confidence": 0.5912
+    },
+    "crop_grounded": {
+     "label": "no",
+     "confidence": 0.604
+    }
+   },
+   "decider_ms": 5698.989800002892,
+   "decider_server_ms": 4877.7,
+   "llm": {
+    "message_kind": {
+     "label": "request",
+     "confidence": 1.0
+    },
+    "district_grounded": {
+     "label": "no",
+     "confidence": 1.0
+    },
+    "crop_grounded": {
+     "label": "no",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 3185.4848000075435,
+   "llm_cost": 0.0016824000000000001
+  },
+  {
+   "i": 16,
+   "expected": {
+    "in_scope": "yes",
+    "district_grounded": "no",
+    "crop_grounded": "no"
+   },
+   "decider": {
+    "in_scope": {
+     "label": "yes",
+     "confidence": 0.9003
+    },
+    "district_grounded": {
+     "label": "no",
+     "confidence": 0.6901
+    },
+    "crop_grounded": {
+     "label": "no",
+     "confidence": 0.7275
+    }
+   },
+   "decider_ms": 4802.985200003604,
+   "decider_server_ms": 3663.7,
+   "llm": {
+    "in_scope": {
+     "label": "yes",
+     "confidence": 1.0
+    },
+    "district_grounded": {
+     "label": "no",
+     "confidence": 1.0
+    },
+    "crop_grounded": {
+     "label": "no",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 2710.08879999863,
+   "llm_cost": 0.0014368000000000002
+  },
+  {
+   "i": 17,
+   "expected": {
+    "message_kind": "request",
+    "in_scope": "yes",
+    "district_grounded": "yes"
+   },
+   "decider": {
+    "message_kind": {
+     "label": "request",
+     "confidence": 0.6066
+    },
+    "in_scope": {
+     "label": "yes",
+     "confidence": 0.9144
+    },
+    "district_grounded": {
+     "label": "yes",
+     "confidence": 0.6244
+    }
+   },
+   "decider_ms": 5216.313500000979,
+   "decider_server_ms": 4360.3,
+   "llm": {
+    "message_kind": {
+     "label": "request",
+     "confidence": 1.0
+    },
+    "in_scope": {
+     "label": "yes",
+     "confidence": 1.0
+    },
+    "district_grounded": {
+     "label": "yes",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 3245.639000000665,
+   "llm_cost": 0.0014608
+  },
+  {
+   "i": 18,
+   "expected": {
+    "in_scope": "yes",
+    "district_grounded": "no"
+   },
+   "decider": {
+    "in_scope": {
+     "label": "yes",
+     "confidence": 0.7402
+    },
+    "district_grounded": {
+     "label": "no",
+     "confidence": 0.6621
+    }
+   },
+   "decider_ms": 3982.4536999949487,
+   "decider_server_ms": 3090.8,
+   "llm": {
+    "in_scope": {
+     "label": "yes",
+     "confidence": 1.0
+    },
+    "district_grounded": {
+     "label": "no",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 2331.602100006421,
+   "llm_cost": 0.001152
+  },
+  {
+   "i": 19,
+   "expected": {
+    "message_kind": "greeting",
+    "in_scope": "yes"
+   },
+   "decider": {
+    "message_kind": {
+     "label": "greeting",
+     "confidence": 0.4271
+    },
+    "in_scope": {
+     "label": "yes",
+     "confidence": 0.8082
+    }
+   },
+   "decider_ms": 4084.644099988509,
+   "decider_server_ms": 3220.7,
+   "llm": {
+    "message_kind": {
+     "label": "greeting",
+     "confidence": 1.0
+    },
+    "in_scope": {
+     "label": "yes",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 3032.590799994068,
+   "llm_cost": 0.0011920000000000001
+  },
+  {
+   "i": 20,
+   "expected": {
+    "message_kind": "rule_override"
+   },
+   "decider": {
+    "message_kind": {
+     "label": "rule_override",
+     "confidence": 0.7687
+    }
+   },
+   "decider_ms": 2881.9791999994777,
+   "decider_server_ms": 2200.0,
+   "llm": {
+    "message_kind": {
+     "label": "rule_override",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 2989.7999000095297,
+   "llm_cost": 0.0009552000000000001
+  },
+  {
+   "i": 21,
+   "expected": {
+    "message_kind": "rule_override"
+   },
+   "decider": {
+    "message_kind": {
+     "label": "rule_override",
+     "confidence": 0.8805
+    }
+   },
+   "decider_ms": 3294.8094999883324,
+   "decider_server_ms": 2161.2,
+   "llm": {
+    "message_kind": {
+     "label": "rule_override",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 2843.1380999973044,
+   "llm_cost": 0.0009968
+  },
+  {
+   "i": 22,
+   "expected": {
+    "message_kind": "rule_override"
+   },
+   "decider": {
+    "message_kind": {
+     "label": "rule_override",
+     "confidence": 0.5667
+    }
+   },
+   "decider_ms": 3060.8135999937076,
+   "decider_server_ms": 2215.9,
+   "llm": {
+    "message_kind": {
+     "label": "rule_override",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 2126.6038000030676,
+   "llm_cost": 0.0009728
+  },
+  {
+   "i": 23,
+   "expected": {
+    "message_kind": "rule_override"
+   },
+   "decider": {
+    "message_kind": {
+     "label": "rule_override",
+     "confidence": 0.8254
+    }
+   },
+   "decider_ms": 2742.2392000007676,
+   "decider_server_ms": 1923.0,
+   "llm": {
+    "message_kind": {
+     "label": "rule_override",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 2072.1408000099473,
+   "llm_cost": 0.000952
+  },
+  {
+   "i": 24,
+   "expected": {
+    "message_kind": "rule_override"
+   },
+   "decider": {
+    "message_kind": {
+     "label": "off_topic",
+     "confidence": 0.6079
+    }
+   },
+   "decider_ms": 3101.0891999903833,
+   "decider_server_ms": 2041.7,
+   "llm": {
+    "message_kind": {
+     "label": "rule_override",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 2059.6608000050765,
+   "llm_cost": 0.0010176
+  },
+  {
+   "i": 25,
+   "expected": {
+    "message_kind": "off_topic",
+    "in_scope": "no"
+   },
+   "decider": {
+    "message_kind": {
+     "label": "off_topic",
+     "confidence": 0.7911
+    },
+    "in_scope": {
+     "label": "no",
+     "confidence": 0.874
+    }
+   },
+   "decider_ms": 4149.399600006291,
+   "decider_server_ms": 3013.4,
+   "llm": {
+    "message_kind": {
+     "label": "off_topic",
+     "confidence": 1.0
+    },
+    "in_scope": {
+     "label": "no",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 2266.3636000070255,
+   "llm_cost": 0.0011664000000000002
+  },
+  {
+   "i": 26,
+   "expected": {
+    "message_kind": "off_topic",
+    "in_scope": "no"
+   },
+   "decider": {
+    "message_kind": {
+     "label": "off_topic",
+     "confidence": 0.8039
+    },
+    "in_scope": {
+     "label": "no",
+     "confidence": 0.8329
+    }
+   },
+   "decider_ms": 3832.5331000087317,
+   "decider_server_ms": 3107.9,
+   "llm": {
+    "message_kind": {
+     "label": "off_topic",
+     "confidence": 1.0
+    },
+    "in_scope": {
+     "label": "no",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 2611.383900002693,
+   "llm_cost": 0.0012112
+  },
+  {
+   "i": 27,
+   "expected": {
+    "in_scope": "no"
+   },
+   "decider": {
+    "in_scope": {
+     "label": "no",
+     "confidence": 0.8486
+    }
+   },
+   "decider_ms": 2197.8215999988606,
+   "decider_server_ms": 1402.7,
+   "llm": {
+    "in_scope": {
+     "label": "no",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 3175.820099990233,
+   "llm_cost": 0.0008983999999999999
+  },
+  {
+   "i": 28,
+   "expected": {
+    "message_kind": "off_topic",
+    "in_scope": "no"
+   },
+   "decider": {
+    "message_kind": {
+     "label": "off_topic",
+     "confidence": 0.8041
+    },
+    "in_scope": {
+     "label": "no",
+     "confidence": 0.8434
+    }
+   },
+   "decider_ms": 3915.629399998579,
+   "decider_server_ms": 3192.4,
+   "llm": {
+    "message_kind": {
+     "label": "off_topic",
+     "confidence": 1.0
+    },
+    "in_scope": {
+     "label": "no",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 2485.1253000088036,
+   "llm_cost": 0.0011808
+  },
+  {
+   "i": 29,
+   "expected": {
+    "in_scope": "no"
+   },
+   "decider": {
+    "in_scope": {
+     "label": "no",
+     "confidence": 0.5492
+    }
+   },
+   "decider_ms": 2252.3396000033244,
+   "decider_server_ms": 1409.9,
+   "llm": {
+    "in_scope": {
+     "label": "no",
+     "confidence": 0.95
+    }
+   },
+   "llm_ms": 3236.32880000514,
+   "llm_cost": 0.0009544
+  },
+  {
+   "i": 30,
+   "expected": {
+    "district_grounded": "yes",
+    "crop_grounded": "yes"
+   },
+   "decider": {
+    "district_grounded": {
+     "label": "no",
+     "confidence": 0.5117
+    },
+    "crop_grounded": {
+     "label": "yes",
+     "confidence": 0.6956
+    }
+   },
+   "decider_ms": 3780.1499999914085,
+   "decider_server_ms": 3033.2,
+   "llm": {
+    "district_grounded": {
+     "label": "yes",
+     "confidence": 1.0
+    },
+    "crop_grounded": {
+     "label": "yes",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 2775.4430000059074,
+   "llm_cost": 0.0011992
+  },
+  {
+   "i": 31,
+   "expected": {
+    "district_grounded": "yes",
+    "crop_grounded": "yes"
+   },
+   "decider": {
+    "district_grounded": {
+     "label": "yes",
+     "confidence": 0.63
+    },
+    "crop_grounded": {
+     "label": "yes",
+     "confidence": 0.6603
+    }
+   },
+   "decider_ms": 3638.9419000042835,
+   "decider_server_ms": 2726.1,
+   "llm": {
+    "district_grounded": {
+     "label": "yes",
+     "confidence": 1.0
+    },
+    "crop_grounded": {
+     "label": "yes",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 2243.7909999862313,
+   "llm_cost": 0.0011304
+  },
+  {
+   "i": 32,
+   "expected": {
+    "district_grounded": "no",
+    "crop_grounded": "yes"
+   },
+   "decider": {
+    "district_grounded": {
+     "label": "no",
+     "confidence": 0.5086
+    },
+    "crop_grounded": {
+     "label": "yes",
+     "confidence": 0.6222
+    }
+   },
+   "decider_ms": 4280.069000000367,
+   "decider_server_ms": 2911.8,
+   "llm": {
+    "district_grounded": {
+     "label": "no",
+     "confidence": 1.0
+    },
+    "crop_grounded": {
+     "label": "yes",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 3134.6499000064796,
+   "llm_cost": 0.0012000000000000001
+  },
+  {
+   "i": 33,
+   "expected": {
+    "district_grounded": "yes",
+    "crop_grounded": "yes"
+   },
+   "decider": {
+    "district_grounded": {
+     "label": "no",
+     "confidence": 0.5554
+    },
+    "crop_grounded": {
+     "label": "no",
+     "confidence": 0.5593
+    }
+   },
+   "decider_ms": 3676.337800003239,
+   "decider_server_ms": 2855.5,
+   "llm": {
+    "district_grounded": {
+     "label": "no",
+     "confidence": 0.9
+    },
+    "crop_grounded": {
+     "label": "no",
+     "confidence": 0.9
+    }
+   },
+   "llm_ms": 2736.4954999939073,
+   "llm_cost": 0.0013544
+  },
+  {
+   "i": 34,
+   "expected": {
+    "district_grounded": "yes",
+    "crop_grounded": "yes"
+   },
+   "decider": {
+    "district_grounded": {
+     "label": "yes",
+     "confidence": 0.6648
+    },
+    "crop_grounded": {
+     "label": "yes",
+     "confidence": 0.7134
+    }
+   },
+   "decider_ms": 3366.349400006584,
+   "decider_server_ms": 2584.2,
+   "llm": {
+    "district_grounded": {
+     "label": "yes",
+     "confidence": 1.0
+    },
+    "crop_grounded": {
+     "label": "yes",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 3585.139500006335,
+   "llm_cost": 0.0011664
+  },
+  {
+   "i": 35,
+   "expected": {
+    "in_scope": "yes",
+    "district_grounded": "yes"
+   },
+   "decider": {
+    "in_scope": {
+     "label": "yes",
+     "confidence": 0.7094
+    },
+    "district_grounded": {
+     "label": "yes",
+     "confidence": 0.6779
+    }
+   },
+   "decider_ms": 3674.934499998926,
+   "decider_server_ms": 2940.5,
+   "llm": {
+    "in_scope": {
+     "label": "yes",
+     "confidence": 1.0
+    },
+    "district_grounded": {
+     "label": "yes",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 2430.300599997281,
+   "llm_cost": 0.0011232
+  },
+  {
+   "i": 36,
+   "expected": {
+    "in_scope": "yes",
+    "district_grounded": "no",
+    "crop_grounded": "no"
+   },
+   "decider": {
+    "in_scope": {
+     "label": "yes",
+     "confidence": 0.6031
+    },
+    "district_grounded": {
+     "label": "no",
+     "confidence": 0.5664
+    },
+    "crop_grounded": {
+     "label": "no",
+     "confidence": 0.6385
+    }
+   },
+   "decider_ms": 3976.4121000043815,
+   "decider_server_ms": 3317.1,
+   "llm": {
+    "in_scope": {
+     "label": "yes",
+     "confidence": 0.9
+    },
+    "district_grounded": {
+     "label": "no",
+     "confidence": 1.0
+    },
+    "crop_grounded": {
+     "label": "no",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 2435.6288999988465,
+   "llm_cost": 0.0013856000000000003
+  },
+  {
+   "i": 37,
+   "expected": {
+    "message_kind": "request",
+    "in_scope": "yes",
+    "district_grounded": "yes"
+   },
+   "decider": {
+    "message_kind": {
+     "label": "request",
+     "confidence": 0.5672
+    },
+    "in_scope": {
+     "label": "yes",
+     "confidence": 0.7201
+    },
+    "district_grounded": {
+     "label": "yes",
+     "confidence": 0.6924
+    }
+   },
+   "decider_ms": 5632.385700009763,
+   "decider_server_ms": 4500.4,
+   "llm": {
+    "message_kind": {
+     "label": "request",
+     "confidence": 1.0
+    },
+    "in_scope": {
+     "label": "yes",
+     "confidence": 1.0
+    },
+    "district_grounded": {
+     "label": "yes",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 3410.4766999953426,
+   "llm_cost": 0.0015056000000000002
+  },
+  {
+   "i": 38,
+   "expected": {
+    "in_scope": "yes",
+    "district_grounded": "no"
+   },
+   "decider": {
+    "in_scope": {
+     "label": "yes",
+     "confidence": 0.8384
+    },
+    "district_grounded": {
+     "label": "no",
+     "confidence": 0.562
+    }
+   },
+   "decider_ms": 3676.193699997384,
+   "decider_server_ms": 2810.9,
+   "llm": {
+    "in_scope": {
+     "label": "yes",
+     "confidence": 1.0
+    },
+    "district_grounded": {
+     "label": "no",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 2603.457300006994,
+   "llm_cost": 0.0011816
+  },
+  {
+   "i": 39,
+   "expected": {
+    "message_kind": "request",
+    "in_scope": "yes",
+    "district_grounded": "yes",
+    "crop_grounded": "yes"
+   },
+   "decider": {
+    "message_kind": {
+     "label": "request",
+     "confidence": 0.7011
+    },
+    "in_scope": {
+     "label": "yes",
+     "confidence": 0.862
+    },
+    "district_grounded": {
+     "label": "yes",
+     "confidence": 0.7063
+    },
+    "crop_grounded": {
+     "label": "yes",
+     "confidence": 0.7454
+    }
+   },
+   "decider_ms": 6393.212800001493,
+   "decider_server_ms": 5667.1,
+   "llm": {
+    "message_kind": {
+     "label": "request",
+     "confidence": 1.0
+    },
+    "in_scope": {
+     "label": "yes",
+     "confidence": 1.0
+    },
+    "district_grounded": {
+     "label": "yes",
+     "confidence": 1.0
+    },
+    "crop_grounded": {
+     "label": "yes",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 2354.650599998422,
+   "llm_cost": 0.0016928000000000002
+  }
+ ],
+ "summary": {
+  "decider": {
+   "accuracy": 0.9053,
+   "decisions": 95,
+   "per_question": {
+    "message_kind": 0.913,
+    "in_scope": 1.0,
+    "district_grounded": 0.8929,
+    "crop_grounded": 0.8
+   },
+   "latency_p50_ms": 4084.6,
+   "latency_p95_ms": 6672.7,
+   "usd_per_1k_decisions": 0.035,
+   "confident_share": 0.4211,
+   "accuracy_when_confident": 1.0,
+   "sent_to_human_at_threshold": 55
+  },
+  "llm": {
+   "accuracy": 0.9474,
+   "decisions": 95,
+   "per_question": {
+    "message_kind": 1.0,
+    "in_scope": 1.0,
+    "district_grounded": 0.9286,
+    "crop_grounded": 0.85
+   },
+   "latency_p50_ms": 2840.0,
+   "latency_p95_ms": 3410.5,
+   "usd_per_1k_decisions": 0.5566,
+   "confident_share": 1.0,
+   "accuracy_when_confident": 0.9474,
+   "sent_to_human_at_threshold": 0
+  },
+  "speedup_p50": 0.7
+ },
+ "threshold": 0.7,
+ "llm_model": "us.amazon.nova-pro-v1:0",
+ "llm_provider": "bedrock",
+ "llm_where": "Amazon Bedrock (us.amazon.nova-pro-v1:0)",
+ "decider_url": "https://da25tnxy06gjk.cloudfront.net",
+ "decider_mode": "ugmdu",
+ "ran_at": 1792599336.4362757,
+ "split": "all"
+}

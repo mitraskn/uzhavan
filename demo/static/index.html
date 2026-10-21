@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2e6b30">
+<title>Uzhavan</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌾</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Mukta+Malar:wght@400;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --bg:#f4efe2; --paper:#fffdf7; --ink:#22301f; --muted:#6b7563; --line:#e3dccb;
+  --leaf:#2e7d32; --leaf-dark:#1d4f21; --leaf-soft:#e7f1e3; --soil:#7a5235; --soil-soft:#f3e7da; --sun:#f2a900;
+  --green:#1e8e4e; --green-bg:#e2f5e8; --yellow:#9a6200; --yellow-bg:#fff2cf; --red:#c0392b; --red-bg:#fde6e3;
+  --night:#14201a; --night-2:#1d2c24; --night-ink:#e8efe6; --night-muted:#9fb1a3;
+  --r:18px; --shadow:0 6px 24px rgba(60,50,20,.10);
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--ink);font:16px/1.45 "Nunito","Mukta Malar",system-ui,"Segoe UI",sans-serif;display:flex;flex-direction:column;overflow:hidden}
+html[lang=ta] body{font-family:"Mukta Malar","Nunito",system-ui,sans-serif}
+button{font:inherit;color:inherit}
+.hidden{display:none!important}
+
+/* header */
+header{background:linear-gradient(120deg,var(--leaf-dark),var(--leaf) 70%);color:#fff;padding:10px 18px;display:flex;align-items:center;gap:14px;
+  box-shadow:0 2px 10px rgba(0,0,0,.15);position:relative;z-index:500}
+.logo{width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.15);display:grid;place-items:center;font-size:24px}
+.brand h1{margin:0;font-size:21px;letter-spacing:.2px;font-weight:800} .brand div{font-size:12.5px;opacity:.85}
+.tabs{display:flex;gap:6px;margin-left:auto;background:rgba(0,0,0,.18);padding:4px;border-radius:999px}
+.tab{border:0;background:transparent;color:#e8f3e6;padding:7px 14px;border-radius:999px;cursor:pointer;font-weight:700;font-size:14px;white-space:nowrap}
+.tab.on{background:#fff;color:var(--leaf-dark)}
+.badge{display:inline-block;min-width:20px;padding:0 6px;margin-left:4px;border-radius:999px;background:var(--sun);color:#3a2a00;font-size:12px}
+.langbtn{border:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.12);color:#fff;border-radius:999px;padding:7px 14px;cursor:pointer;font-weight:700}
+.alert{display:none;background:var(--red);color:#fff;padding:10px 18px;font-weight:700;font-size:15px;animation:slide .4s ease}
+.alert.show{display:block}
+
+/* home: laptop = controls left, chat right */
+.view{flex:1;min-height:0}
+#home{display:grid;grid-template-columns:minmax(360px,440px) minmax(0,1fr);gap:18px;padding:16px 18px}
+.left{overflow-y:auto;display:flex;flex-direction:column;gap:14px;padding-right:4px;min-height:0}
+.right{display:flex;flex-direction:column;min-height:0;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden}
+.box{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:14px;box-shadow:var(--shadow)}
+.box h2{margin:0 0 10px;font-size:13px;letter-spacing:.8px;text-transform:uppercase;color:var(--soil)}
+
+/* your farm */
+.farmline{display:flex;align-items:center;gap:10px;font-size:16px}
+.farmline b{font-weight:800}
+.edit{margin-left:auto;border:1px solid var(--line);background:var(--soil-soft);border-radius:999px;padding:6px 12px;cursor:pointer;font-weight:700;font-size:13.5px}
+#map{height:210px;border-radius:14px;border:1px solid var(--line);margin:10px 0}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+select{font:inherit;font-size:15px;padding:9px 10px;border-radius:12px;border:1px solid var(--line);background:#fff;flex:1;min-width:0}
+.locbtn{border:0;background:var(--leaf);color:#fff;border-radius:12px;padding:10px 14px;cursor:pointer;font-weight:800;white-space:nowrap}
+.crops{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.chip{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px;cursor:pointer;font-weight:700;font-size:14.5px}
+.chip:hover{border-color:var(--leaf)} .chip.on{background:var(--leaf);border-color:var(--leaf);color:#fff}
+.pulse{animation:pulse 1s 3}
+@keyframes pulse{50%{box-shadow:0 0 0 6px rgba(242,169,0,.45)}}
+.wstrip{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:10px;text-align:center}
+.wd{background:var(--leaf-soft);border-radius:12px;padding:6px 2px;font-size:12px}
+.wd .i{font-size:22px} .wd b{display:block;font-size:13.5px}
+
+/* tap & speak */
+.speakbox{display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px}
+.bigmic{width:100%;border:0;border-radius:22px;padding:18px;background:linear-gradient(135deg,var(--sun),#f7c948);color:#3a2a00;
+  font-size:21px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:12px;box-shadow:0 6px 18px rgba(242,169,0,.35)}
+.bigmic .mi{font-size:30px}
+.bigmic.rec{background:linear-gradient(135deg,#e74c3c,#c0392b);color:#fff;animation:pulse 1.2s infinite}
+.live{font-size:14px;color:var(--muted);text-align:center} .live:empty{display:none}
+
+/* tool tiles */
+.group{margin-bottom:10px} .group h3{margin:4px 0 8px;font-size:13px;color:var(--muted);font-weight:800}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tile{border:1px solid var(--line);background:#fff;border-radius:16px;padding:10px 6px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;
+  font-weight:700;font-size:13.5px;text-align:center;transition:transform .12s,box-shadow .12s;line-height:1.2}
+.tile .ti{font-size:28px}
+.tile:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(46,125,50,.15);border-color:var(--leaf)}
+.tile:active{transform:scale(.97)}
+
+/* chat */
+#chat{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;background:linear-gradient(var(--paper),#fbf8ef)}
+.msg{max-width:78%;padding:11px 14px;border-radius:18px;font-size:15.5px;animation:slide .3s ease}
+@keyframes slide{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.me{align-self:flex-end;background:var(--leaf);color:#fff;border-bottom-right-radius:6px}
+.bot{align-self:flex-start;background:#fff;border:1px solid var(--line);border-bottom-left-radius:6px}
+.meta{font-size:12px;color:var(--muted);margin-top:6px;display:flex;gap:10px;align-items:center}
+.speak{border:0;background:var(--leaf-soft);border-radius:999px;cursor:pointer;font-size:13px;padding:3px 10px}
+.thinking{color:var(--muted);font-style:italic}
+.photo-msg{align-self:flex-end;max-width:40%;max-height:220px;object-fit:cover;border-radius:16px;border:3px solid var(--leaf)}
+.card .meta{margin-top:10px}
+.card{align-self:stretch;border-radius:20px;padding:16px 18px;border:2px solid;max-width:680px;animation:slide .35s ease;box-shadow:var(--shadow)}
+.card.GREEN{background:var(--green-bg);border-color:var(--green)} .card.YELLOW{background:var(--yellow-bg);border-color:#e0a020}
+.card.RED{background:var(--red-bg);border-color:var(--red)} .card.info{background:#fff;border-color:var(--line)}
+.big{display:flex;align-items:center;gap:12px;font-size:21px;font-weight:800;line-height:1.25}
+.GREEN .big{color:var(--green)} .YELLOW .big{color:var(--yellow)} .RED .big{color:var(--red)}
+.light{width:34px;height:34px;border-radius:50%;flex:0 0 34px;box-shadow:inset 0 -3px 0 rgba(0,0,0,.15)}
+.GREEN .light{background:var(--green);box-shadow:0 0 14px rgba(30,142,78,.55)} .YELLOW .light{background:#e0a020;box-shadow:0 0 14px rgba(224,160,32,.6)}
+.RED .light{background:var(--red);box-shadow:0 0 14px rgba(192,57,43,.55)}
+.why{margin:8px 0;font-size:15.5px}
+.nums{display:flex;gap:8px;flex-wrap:wrap}
+.num{background:rgba(255,255,255,.85);border-radius:12px;padding:6px 12px;font-size:12.5px;color:var(--muted)}
+.num b{display:block;font-size:17px;color:var(--ink)}
+.best{margin-top:10px;font-weight:800}
+.checked{margin-top:12px;padding-top:10px;border-top:1px dashed rgba(0,0,0,.15);font-size:13px;color:var(--muted)}
+.checked .ok{color:var(--green);font-weight:800}
+.fixed{margin-top:8px;background:var(--night);color:var(--night-ink);border-radius:12px;padding:8px 12px;font-size:13.5px}
+.card h4{margin:0 0 10px;font-size:16.5px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+td,th{padding:7px 5px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{color:var(--muted);font-weight:700;font-size:12px}
+.act{font-weight:800} .act.GREEN{color:var(--green)} .act.YELLOW{color:var(--yellow)} .act.RED{color:var(--red)}
+.days{display:grid;grid-template-columns:repeat(var(--n,5),1fr);gap:6px;text-align:center}
+.day{background:var(--leaf-soft);border-radius:12px;padding:8px 2px;font-size:12px} .day .i{font-size:24px} .day b{font-size:14px;display:block}
+.tips{margin:6px 0 0;padding-left:20px;font-size:15px}
+.bar{display:flex;gap:8px;align-items:center;padding:10px 12px;border-top:1px solid var(--line);background:#fff}
+.ib{flex:0 0 46px;height:46px;border-radius:50%;border:1px solid var(--line);background:var(--leaf-soft);font-size:20px;cursor:pointer;display:grid;place-items:center}
+#m{flex:1;min-width:0;height:46px;border:1px solid var(--line);border-radius:999px;padding:0 16px;font:inherit;font-size:15.5px;outline:none;background:#fbfaf5}
+#m:focus{border-color:var(--leaf)}
+#send{flex:0 0 auto;height:46px;border-radius:999px;border:0;background:var(--leaf);color:#fff;font-weight:800;padding:0 22px;cursor:pointer}
+.pend{display:none;align-items:center;gap:10px;padding:6px 14px;background:var(--leaf-soft);font-size:14px}
+.pend img{width:44px;height:44px;object-fit:cover;border-radius:8px} .pend button{margin-left:auto;border:0;background:none;font-size:16px;cursor:pointer}
+.foot{font-size:11.5px;color:var(--muted);text-align:center;padding:4px 10px 8px;background:#fff}
+#img{display:none}
+
+/* decider page */
+#decider{overflow-y:auto;padding:18px;background:var(--night);color:var(--night-ink)}
+.dwrap{max-width:1150px;margin:0 auto}
+.dhead h2{margin:0;font-size:22px} .dhead p{color:var(--night-muted);margin:6px 0 16px;max-width:820px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.st{background:var(--night-2);border:1px solid #2d4035;border-radius:16px;padding:14px}
+.st b{display:block;font-size:30px;font-weight:800} .st span{color:var(--night-muted);font-size:13.5px}
+.st.hl b{color:#ffd166} .st.ok b{color:#5bd38c} .st.bad b{color:#ff8a7a}
+.how{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
+.how div{background:var(--night-2);border-radius:14px;padding:10px 12px;font-size:13.5px;color:var(--night-muted)} .how b{color:var(--night-ink);display:block;font-family:ui-monospace,Consolas,monospace}
+.decs{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:12px;font:13px/1.4 ui-monospace,Menlo,Consolas,monospace}
+.dec{background:var(--night-2);border:1px solid #2d4035;border-radius:14px;padding:12px;animation:slide .3s ease}
+.dec.corr{border-color:#ffd166}
+.dec .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-family:"Nunito",sans-serif;font-weight:800}
+.v{border-radius:999px;padding:2px 10px;font-size:11.5px;border:1px solid}
+.v.proceed,.v.corrected{color:#5bd38c;border-color:#5bd38c} .v.guide,.v.confirm,.v.redirect,.v.fallback{color:#ffd166;border-color:#ffd166} .v.deny{color:#ff8a7a;border-color:#ff8a7a}
+.q{display:grid;grid-template-columns:140px 1fr 42px;gap:8px;align-items:center;margin:4px 0}
+.track{height:8px;background:#2d4035;border-radius:9px;overflow:hidden} .fill{height:100%;background:#5bd38c} .fill.low{background:#ff8a7a}
+.ms{color:var(--night-muted);margin-top:6px}
+.empty{color:var(--night-muted)}
+
+/* mobile: one column, the page scrolls, the input stays at the bottom */
+@media (max-width:900px){
+  body{overflow:auto;height:auto;min-height:100%}
+  header{padding:8px 12px;gap:10px;position:sticky;top:0} .brand div{display:none} .logo{width:36px;height:36px;font-size:20px}
+  .tab{padding:6px 9px;font-size:13px} .langbtn{padding:6px 10px;font-size:13px}
+  .brand h1{font-size:18px} .tabs{margin-left:auto} .tab .lbl{display:none}
+  #home{display:flex;flex-direction:column;padding:10px;gap:10px}
+  .left{overflow:visible;padding:0} #map{height:170px}
+  .right{min-height:60vh}
+  #chat{min-height:40vh;overflow:visible}
+  .bar{position:sticky;bottom:0;z-index:400}
+  .tiles{grid-template-columns:repeat(3,1fr)}
+  .stats,.how{grid-template-columns:repeat(2,1fr)}
+  .msg{max-width:90%}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">🌾</div>
+  <div class="brand"><h1 id="t-title">Uzhavan</h1><div id="t-tag"></div></div>
+  <div class="tabs">
+    <button class="tab on" id="tab-home">🏠 <span class="lbl" id="t-home"></span></button>
+    <button class="tab" id="tab-decider">🛡️ <span class="lbl" id="t-dtab"></span><span class="badge" id="dcount">0</span></button>
+  </div>
+  <button class="langbtn" id="langbtn">தமிழ்</button>
+</header>
+<div class="alert" id="alert"></div>
+
+<main class="view" id="home">
+  <section class="left">
+    <div class="box" id="farm">
+      <h2 id="t-farm"></h2>
+      <div class="farmline" id="farmline"><span>📍 <b id="cd"></b> · 🌾 <b id="cc"></b></span><button class="edit" id="edit"></button></div>
+      <div id="farmedit">
+        <div id="map"></div>
+        <div class="row"><select id="dsel" aria-label="District"></select><button class="locbtn" id="loc"></button></div>
+        <div class="crops" id="crops"></div>
+      </div>
+      <div class="wstrip" id="wstrip"></div>
+    </div>
+    <div class="box speakbox">
+      <button class="bigmic" id="mic"><span class="mi">🎤</span><span id="t-mic"></span></button>
+      <div class="live" id="live"></div>
+    </div>
+    <div class="box" id="toolsbox"><h2 id="t-ask"></h2><div id="groups"></div></div>
+  </section>
+  <section class="right">
+    <div id="chat"></div>
+    <div class="pend" id="pend"><img alt=""><span id="t-pend"></span><button id="unpend" title="Remove">✕</button></div>
+    <div class="bar">
+      <label class="ib" for="img" title="Crop photo">📷</label>
+      <input id="img" type="file" accept="image/*" capture="environment">
+      <input id="m" autocomplete="off" enterkeyhint="send">
+      <button id="send"></button>
+    </div>
+    <div class="foot" id="t-foot"></div>
+  </section>
+</main>
+
+<main class="view hidden" id="decider">
+  <div class="dwrap">
+    <div class="dhead"><h2>🛡️ Strands Decider 2B · #guardrails</h2><p id="t-dintro"></p></div>
+    <div class="stats" id="stats"></div>
+    <div class="how" id="how"></div>
+    <div class="decs" id="decs"><div class="empty" id="t-empty"></div></div>
+  </div>
+</main>
+
+<script>
+const $ = s => document.querySelector(s);
+const store = {get(k){try{return localStorage.getItem(k)}catch(e){return null}}, set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+const S = {district: store.get("uz_district") || null, crop: store.get("uz_crop") || null,
+           sid: store.get("uz_sid") || ("s" + Math.random().toString(36).slice(2)),
+           lang: store.get("uz_ui_lang") || "en", view: "home", busy: false, voiceTurn: false, pending: null,
+           markers: {}, names: {}, coords: {}, cropsTa: {}, tools: [], groups: {}, entries: [], weather: null, alert: null,
+           decs: [], editing: false};
+try { S.decs = JSON.parse(store.get("uz_decs") || "[]"); } catch (e) { S.decs = []; }
+store.set("uz_sid", S.sid);
+document.body.dataset.turns = "0";
+
+// ---------- words on the screen ----------
+const UI = {
+  title: {en: "Uzhavan", ta: "உழவன்"}, tag: {en: "Smart Farm Weather Advisor", ta: "வானிலை விவசாய ஆலோசகர்"},
+  home: {en: "Home", ta: "முகப்பு"}, dtab: {en: "Decider", ta: "Decider"},
+  farm: {en: "Your farm", ta: "உங்கள் வயல்"}, edit: {en: "✎ Change", ta: "✎ மாற்று"}, done: {en: "✓ Done", ta: "✓ சரி"},
+  pickd: {en: "Pick district", ta: "மாவட்டம்"}, pickc: {en: "Pick crop", ta: "பயிர்"},
+  loc: {en: "📍 Use my location", ta: "📍 என் இருப்பிடம்"},
+  locwait: {en: "Finding you…", ta: "தேடுகிறது…"},
+  locfar: {en: "You seem to be outside Tamil Nadu. Please pick your district.", ta: "நீங்கள் தமிழ்நாட்டிற்கு வெளியே இருப்பதாகத் தெரிகிறது. மாவட்டத்தைத் தேர்ந்தெடுக்கவும்."},
+  locno: {en: "Location is not available. Please pick your district.", ta: "இருப்பிடம் கிடைக்கவில்லை. மாவட்டத்தைத் தேர்ந்தெடுக்கவும்."},
+  locok: {en: "Found you: {d}", ta: "கண்டுபிடித்தது: {d}"},
+  mic: {en: "Tap & speak", ta: "தட்டிப் பேசுங்கள்"}, stop: {en: "Listening… tap to stop", ta: "கேட்கிறது… நிறுத்த தட்டவும்"},
+  ask: {en: "Ask with one tap", ta: "ஒரே தட்டில் கேளுங்கள்"},
+  ph: {en: "Ask anything about your farm…", ta: "உங்கள் வயல் பற்றி எதையும் கேளுங்கள்…"}, send: {en: "Send", ta: "அனுப்பு"},
+  greet: {en: "Vanakkam! 🙏 Pick your district and crop (or tap 📍 Use my location). Then tap a button, speak, or type your question.",
+          ta: "வணக்கம்! 🙏 உங்கள் மாவட்டத்தையும் பயிரையும் தேர்ந்தெடுக்கவும் (அல்லது 📍 என் இருப்பிடம் தட்டவும்). பிறகு ஒரு பொத்தானைத் தட்டவும், பேசவும் அல்லது கேள்வியைத் தட்டச்சு செய்யவும்."},
+  foot: {en: "Advice is based on weather forecasts. For crop diseases, consult your local agriculture officer.",
+         ta: "ஆலோசனை வானிலை முன்னறிவிப்பின் அடிப்படையில். பயிர் நோய்களுக்கு உங்கள் வேளாண் அலுவலரை அணுகவும்."},
+  checking: {en: "Checking…", ta: "சரிபார்க்கிறது…"},
+  pend: {en: "📷 Photo attached. Tap Send to check it.", ta: "📷 புகைப்படம் இணைக்கப்பட்டது. சரிபார்க்க ‘அனுப்பு’ அழுத்தவும்."},
+  photo: {en: "Check my crop photo", ta: "என் பயிர் புகைப்படத்தைப் பாருங்கள்"},
+  dayL: {en: "Day", ta: "நாள்"}, rainL: {en: "Rain", ta: "மழை"}, maxL: {en: "Max", ta: "வெப்பம்"}, windL: {en: "Wind", ta: "காற்று"}, doL: {en: "Do", ta: "செய்ய"},
+  conf: {en: "Decider confidence", ta: "Decider நம்பிக்கை"},
+  checked: {en: "Decider checked", ta: "Decider சரிபார்த்தது"},
+  district: {en: "district", ta: "மாவட்டம்"}, crop: {en: "crop", ta: "பயிர்"},
+  selected: {en: "you selected it", ta: "நீங்கள் தேர்ந்தெடுத்தது"}, said: {en: "you said it", ta: "நீங்கள் சொன்னது"},
+  fixed: {en: "🛡️ The AI guessed {g}; Decider corrected it to {v}, which you gave.", ta: "🛡️ AI {g} என ஊகித்தது; நீங்கள் கொடுத்த {v} என Decider திருத்தியது."},
+  fallback: {en: "Decider was not reachable; only what you gave was used.", ta: "Decider கிடைக்கவில்லை; நீங்கள் கொடுத்தது மட்டும் பயன்படுத்தப்பட்டது."},
+  err: {en: "Sorry, something went wrong:", ta: "மன்னிக்கவும், பிழை:"}, checks: {en: "Decider check", ta: "Decider சோதனை"},
+  novoice: {en: "Voice works in Chrome or Edge. Please type your question.", ta: "குரல் Chrome அல்லது Edge-ல் வேலை செய்யும். கேள்வியைத் தட்டச்சு செய்யவும்."},
+  micno: {en: "Please allow the microphone in the browser to use voice.", ta: "குரலைப் பயன்படுத்த உலாவியில் மைக்ரோஃபோனை அனுமதிக்கவும்."},
+  notts: {en: "Tamil voice is not available here. Open the app in Microsoft Edge, or check the internet.",
+          ta: "இங்கு தமிழ் குரல் கிடைக்கவில்லை. Microsoft Edge-ல் திறக்கவும், அல்லது இணையத்தைச் சரிபார்க்கவும்."},
+  dintro: {en: "Every message gets ONE Decider request with four typed questions. Before any of the 15 tools runs, the district and crop must be really known: given by the farmer, never guessed by the AI.",
+           ta: "ஒவ்வொரு செய்திக்கும் ஒரே ஒரு Decider கோரிக்கை, நான்கு கேள்விகள். 15 கருவிகளில் எதுவும் இயங்கும் முன், மாவட்டமும் பயிரும் உண்மையில் விவசாயி கொடுத்ததாக இருக்க வேண்டும்; AI ஊகிக்கக் கூடாது."},
+  empty: {en: "Decisions appear here as the farmer uses the app.", ta: "விவசாயி பயன்படுத்தும்போது முடிவுகள் இங்கே தோன்றும்."},
+  s_checks: {en: "Decider checks", ta: "சோதனைகள்"}, s_fixed: {en: "AI guesses corrected", ta: "திருத்திய ஊகங்கள்"},
+  s_asked: {en: "Asked instead of guessing", ta: "ஊகிக்காமல் கேட்டது"}, s_conf: {en: "Asked to confirm", ta: "உறுதிப்படுத்தக் கேட்டது"},
+  s_deny: {en: "Tricks blocked", ta: "தடுத்த தந்திரங்கள்"}, s_redir: {en: "Off-topic redirected", ta: "தலைப்புக்கு வெளியே"},
+  s_photo: {en: "Photos checked", ta: "சரிபார்த்த புகைப்படங்கள்"}, s_ms: {en: "Median Decider time", ta: "சராசரி நேரம்"},
+};
+const P = () => S.lang;
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const one = o => !o ? "" : typeof o === "string" ? o : (o[P()] ?? o.en ?? "");
+const T = o => esc(one(o));
+const dname = n => (S.lang === "ta" && S.names[n]) ? S.names[n] : (n || "");
+const cname = c => (S.lang === "ta" && S.cropsTa[c]) ? S.cropsTa[c] : (c || "");
+
+// ---------- language, tabs ----------
+function applyLang(){
+  document.documentElement.lang = S.lang;
+  $("#t-title").textContent = one(UI.title); $("#t-tag").textContent = one(UI.tag);
+  $("#t-home").textContent = one(UI.home); $("#t-dtab").textContent = one(UI.dtab);
+  $("#langbtn").textContent = S.lang === "ta" ? (innerWidth <= 900 ? "EN" : "English") : "தமிழ்";
+  $("#t-farm").textContent = one(UI.farm); $("#loc").textContent = one(UI.loc); $("#t-mic").textContent = one(UI.mic);
+  $("#t-ask").textContent = one(UI.ask); $("#send").textContent = one(UI.send); $("#t-foot").textContent = one(UI.foot);
+  $("#t-pend").textContent = one(UI.pend); $("#m").placeholder = S.pending ? one(UI.pend) : one(UI.ph);
+  $("#t-dintro").textContent = one(UI.dintro); const em = $("#t-empty"); if (em) em.textContent = one(UI.empty);
+  [...$("#dsel").options].forEach(o => o.textContent = o.value ? dname(o.value) : one(UI.pickd) + "…");
+  document.querySelectorAll("#crops .chip").forEach(b => b.textContent = cname(b.dataset.crop));
+  renderTools(); renderFarm(); renderChat(); renderDecider(); if (S.alert !== undefined) showAlert(S.alert);
+}
+function setLang(l){ S.lang = l; store.set("uz_ui_lang", l); applyLang(); }
+$("#langbtn").onclick = () => setLang(S.lang === "ta" ? "en" : "ta");
+function show(v){
+  S.view = v; $("#home").classList.toggle("hidden", v !== "home"); $("#decider").classList.toggle("hidden", v !== "decider");
+  $("#tab-home").classList.toggle("on", v === "home"); $("#tab-decider").classList.toggle("on", v === "decider");
+  if (v === "home" && map) setTimeout(() => map.invalidateSize(), 50);
+}
+$("#tab-home").onclick = () => show("home"); $("#tab-decider").onclick = () => show("decider");
+
+// ---------- your farm: map, list, location, crops ----------
+const map = window.L ? L.map("map", {zoomControl: true}).setView([10.9, 78.4], 6.5) : null;
+if (map) L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {maxZoom: 12, attribution: "© OpenStreetMap"}).addTo(map);
+else $("#map").style.display = "none";
+const dot = on => ({radius: on ? 10 : 6, color: on ? "#1d4f21" : "#2e7d32", weight: 2, fillColor: on ? "#f2a900" : "#ffffff", fillOpacity: 1});
+
+function renderFarm(){
+  const chosen = S.district && S.crop;
+  $("#cd").textContent = S.district ? dname(S.district) : one(UI.pickd);
+  $("#cc").textContent = S.crop ? cname(S.crop) : one(UI.pickc);
+  const editing = S.editing || !chosen;
+  $("#farmedit").classList.toggle("hidden", !editing);
+  $("#edit").textContent = editing ? one(UI.done) : one(UI.edit);
+  $("#edit").classList.toggle("hidden", !chosen);
+  if (editing && map) setTimeout(() => map.invalidateSize(), 50);
+  renderWeather();
+}
+$("#edit").onclick = () => { S.editing = !S.editing; renderFarm(); };
+function renderWeather(){
+  const w = S.weather;
+  $("#wstrip").innerHTML = !w ? "" : w.days.map(x => `<div class="wd"><div>${esc(one(x.day).split(" ")[0])}</div><div class="i">${x.icon}</div><b>${x.rain_mm} mm</b><div>${x.tmax}°</div></div>`).join("");
+}
+function setDistrict(name, quiet){
+  if (S.district && S.markers[S.district]) S.markers[S.district].setStyle(dot(false));
+  S.district = name; store.set("uz_district", name); $("#dsel").value = name;
+  const m = S.markers[name];
+  if (m){ m.setStyle(dot(true)); m.bringToFront(); map.setView(m.getLatLng(), quiet ? 8 : Math.max(map.getZoom(), 8)); }
+  fetch("/api/weather?district=" + encodeURIComponent(name)).then(r => r.json()).then(w => { S.weather = w.weather; S.alert = w.alert; renderWeather(); showAlert(w.alert); }).catch(() => {});
+  renderFarm();
+}
+function setCrop(c){
+  S.crop = c; store.set("uz_crop", c);
+  document.querySelectorAll("#crops .chip").forEach(b => b.classList.toggle("on", b.dataset.crop === c));
+  if (S.district) S.editing = false;
+  renderFarm();
+}
+$("#dsel").onchange = e => e.target.value && setDistrict(e.target.value);
+function showAlert(a){ const el = $("#alert"); if (a){ el.textContent = "⚠️ " + one(a.text); el.classList.add("show"); } else el.classList.remove("show"); }
+
+$("#loc").onclick = () => {
+  if (!navigator.geolocation){ push({k: "bot", reply: UI.locno}); return; }
+  $("#loc").textContent = one(UI.locwait);
+  navigator.geolocation.getCurrentPosition(p => {
+    const {latitude: la, longitude: lo} = p.coords; let best = null, bd = 1e9;
+    for (const [n, c] of Object.entries(S.coords)){
+      const dLa = (c[0] - la) * 111, dLo = (c[1] - lo) * 111 * Math.cos(la * Math.PI / 180), d = Math.hypot(dLa, dLo);
+      if (d < bd){ bd = d; best = n; }
+    }
+    $("#loc").textContent = one(UI.loc);
+    if (!best || bd > 120){ push({k: "bot", reply: UI.locfar}); return; }
+    setDistrict(best);
+    push({k: "bot", reply: {en: UI.locok.en.replace("{d}", best), ta: UI.locok.ta.replace("{d}", S.names[best] || best)}});
+  }, () => { $("#loc").textContent = one(UI.loc); push({k: "bot", reply: UI.locno}); }, {timeout: 10000});
+};
+
+// ---------- tools ----------
+function renderTools(){
+  const by = {};
+  S.tools.forEach(t => (by[t.group] = by[t.group] || []).push(t));
+  $("#groups").innerHTML = Object.keys(S.groups).map(g => !by[g] ? "" : `<div class="group"><h3>${T(S.groups[g])}</h3><div class="tiles">
+    ${by[g].map(t => `<button class="tile" data-intent="${t.intent}"><span class="ti">${t.icon}</span>${T({en: t.en, ta: t.ta})}</button>`).join("")}</div></div>`).join("");
+  document.querySelectorAll(".tile").forEach(b => b.onclick = () => {
+    const t = S.tools.find(x => x.intent === b.dataset.intent);
+    send({text: one({en: t.en, ta: t.ta}), label: {en: t.en, ta: t.ta}, intent: t.intent, icon: t.icon});
+  });
+}
+
+fetch("/api/tools").then(r => r.json()).then(d => { S.tools = d.tools; S.groups = d.groups; renderTools(); }).catch(() => {});
+fetch("/api/districts").then(r => r.json()).then(d => {
+  const sel = $("#dsel"); sel.innerHTML = `<option value=""></option>`;
+  d.districts.forEach(x => {
+    S.names[x.name] = x.ta; S.coords[x.name] = [x.lat, x.lon];
+    if (map){ const m = L.circleMarker([x.lat, x.lon], dot(false)).addTo(map).bindTooltip(() => dname(x.name));
+      m.on("click", () => setDistrict(x.name)); S.markers[x.name] = m; }
+    const o = document.createElement("option"); o.value = x.name; sel.appendChild(o);
+  });
+  d.crops.forEach(c => {
+    S.cropsTa[c.name] = c.ta;
+    const b = document.createElement("button"); b.className = "chip"; b.dataset.crop = c.name; b.onclick = () => setCrop(c.name);
+    $("#crops").appendChild(b);
+  });
+  S.entries.push({k: "bot", reply: UI.greet});
+  applyLang();
+  if (S.district) setDistrict(S.district, true);
+  if (S.crop) setCrop(S.crop);
+});
+
+// ---------- chat (kept as data, so switching language redraws everything) ----------
+function renderChat(){ const box = $("#chat"); box.innerHTML = ""; S.entries.forEach(e => box.appendChild(renderEntry(e))); scrollChat(); }
+function scrollChat(){ const box = $("#chat"); box.scrollTop = box.scrollHeight; const last = box.lastElementChild;
+  if (last && S.asked && window.innerWidth <= 900) last.scrollIntoView({behavior: "smooth", block: "nearest"}); }
+function push(e){ S.entries.push(e); $("#chat").appendChild(renderEntry(e)); scrollChat(); }
+function renderEntry(e){
+  const d = document.createElement("div");
+  if (e.k === "me"){ d.className = "msg me"; d.textContent = (e.icon ? e.icon + " " : "") + one(e.text); return d; }
+  if (e.k === "img"){ const i = document.createElement("img"); i.src = e.src; i.className = "photo-msg"; return i; }
+  if (e.k === "wait"){ d.className = "msg bot thinking"; d.textContent = one(UI.checking); return d; }
+  if (e.k === "card"){ const c = renderCard(e.card); if (e.meta !== undefined) c.appendChild(metaRow(e)); return c; }
+  d.className = "msg bot"; d.textContent = one(e.reply);
+  if (e.meta !== undefined) d.appendChild(metaRow(e));
+  return d;
+}
+function metaRow(e){
+  const m = document.createElement("div"); m.className = "meta";
+  m.innerHTML = `<button class="speak" title="Read aloud">🔊</button><span>${esc(e.meta)}${e.nd ? ` · ${e.nd} ${one(UI.checks)}` : ""}</span>`;
+  m.querySelector("button").onclick = () => speak(e.reply);
+  return m;
+}
+function whyHtml(w){
+  if (!w) return "";
+  const parts = (w.facts || []).map(f => `<span class="ok">✓</span> ${T(UI[f.fact])} <b>${T(f.value)}</b> (${T(UI[f.src] || UI.selected)}${typeof f.score === "number" ? ` · ${f.score.toFixed(2)}` : ""})`);
+  let h = `<div class="checked">🛡️ ${T(UI.checked)}: ${parts.join(" &nbsp; ")}${w.fallback ? `<br>${T(UI.fallback)}` : ""}</div>`;
+  (w.fixed || []).forEach(x => { h += `<div class="fixed">${esc(one(UI.fixed).replace("{g}", x.guess).replace("{v}", one(x.value)))}</div>`; });
+  return h;
+}
+function strip(days){ return `<div class="days" style="--n:${days.length}">${days.map(x => `<div class="day"><div>${esc(one(x.day).split(" ")[0])}</div><div class="i">${x.icon}</div><b>${x.rain_mm} mm</b><div>${x.rain_chance}%</div><div>${x.tmax}°</div></div>`).join("")}</div>`; }
+function renderCard(c){
+  const d = document.createElement("div");
+  if (c.type === "traffic"){
+    d.className = "card " + c.level;
+    d.innerHTML = `<div class="big"><span class="light"></span><div>${T(c.title)}</div></div>
+      <div class="why">${T(c.reason)}</div>
+      <div class="nums">${(c.stats || []).map(s => `<div class="num">${T(s.label)}<b>${T(s.value)}</b></div>`).join("")}</div>
+      ${c.best ? `<div class="best">⏰ ${T(c.best)}</div>` : ""}${whyHtml(c.why)}`;
+  } else if (c.type === "plan"){
+    d.className = "card info";
+    d.innerHTML = `<h4>📅 ${T(c.title)}</h4>
+      <table><tr><th>${T(UI.dayL)}</th><th></th><th>${T(UI.rainL)}</th><th>${T(UI.maxL)}</th><th>${T(UI.windL)}</th><th>${T(UI.doL)}</th></tr>
+      ${c.days.map(x => `<tr><td>${T(x.day)}</td><td>${x.icon}</td><td>${x.rain_mm} mm</td><td>${x.tmax}°</td><td>${x.wind_kmh}</td><td class="act ${x.level}">${T(x.action)}</td></tr>`).join("")}</table>
+      <div class="best">⏰ ${T(c.best)}</div>${whyHtml(c.why)}`;
+  } else if (c.type === "weather" || c.type === "past"){
+    d.className = "card info";
+    d.innerHTML = `<h4>${c.type === "past" ? "📊" : "🌦️"} ${T(c.title)}</h4>${strip(c.days)}${whyHtml(c.why)}`;
+  } else if (c.type === "photo"){
+    d.className = "card " + (!c.ok ? "YELLOW" : c.condition === "healthy" && c.confidence >= .5 ? "GREEN" : "YELLOW");
+    d.innerHTML = `<div class="big"><span class="light"></span><div>${T(c.title)}</div></div>
+      ${c.confidence !== undefined ? `<div class="why">${T(UI.conf)}: ${Math.round(c.confidence * 100)}%</div>` : ""}
+      <ul class="tips">${(one(c.tips) || []).map(t => `<li>${esc(t)}</li>`).join("")}</ul>`;
+  }
+  return d;
+}
+
+async function send(opts){
+  if (S.busy) return;
+  const text = (opts.text || "").trim();
+  if (!text && !opts.intent && !opts.image) return;
+  S.busy = true; S.asked = true;  // on a phone, follow the answer down the page
+  if (opts.image) push({k: "img", src: opts.image}); else push({k: "me", text: opts.label || text, icon: opts.icon});
+  const waitEntry = {k: "wait"}; push(waitEntry);
+  const body = {message: text, session_id: S.sid, district: S.district, crop: S.crop, intent: opts.intent || null,
+                images: opts.image ? [opts.image] : [], lang: S.lang};
+  let out;
+  try {
+    const r = await fetch("/api/chat", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body)});
+    out = await r.json();
+  } catch (e) { out = {error: "Network problem. Check your internet."}; }
+  S.entries = S.entries.filter(e => e !== waitEntry);
+  if (out.error){ S.entries.push({k: "bot", reply: {en: `${UI.err.en} ${out.error}`, ta: `${UI.err.ta} ${out.error}`}}); }
+  else {
+    if (out.profile){ if (out.profile.district && out.profile.district !== S.district) setDistrict(out.profile.district);
+                      if (out.profile.crop && out.profile.crop !== S.crop) setCrop(out.profile.crop); }
+    const reply = out.reply_i18n || {en: out.reply, ta: out.reply};
+    const meta = {reply, meta: out.latency_ms ? `${(out.latency_ms / 1000).toFixed(1)} s` : "",
+                  nd: (out.decisions || []).filter(x => x.stage === "check" || x.stage === "photo").length};
+    const cs = out.cards || [];
+    if (cs.length) cs.forEach((c, i) => S.entries.push({k: "card", card: c, ...(i === cs.length - 1 ? meta : {})}));
+    else S.entries.push({k: "bot", ...meta});
+    if (out.alert !== undefined){ S.alert = out.alert; showAlert(out.alert); }
+    (out.decisions || []).forEach(addDecision);
+    const miss = (out.decisions || []).flatMap(x => x.missing || []);
+    if (miss.length){ S.editing = true; renderFarm(); const el = miss.includes("district") ? $("#dsel") : $("#crops");
+      el.classList.remove("pulse"); void el.offsetWidth; el.classList.add("pulse"); }
+    if (S.voiceTurn) speak(reply);
+  }
+  renderChat();
+  S.voiceTurn = false; S.busy = false;
+  document.body.dataset.turns = String(+document.body.dataset.turns + 1);
+}
+$("#send").onclick = () => {
+  const t = $("#m").value; $("#m").value = "";
+  const image = S.pending; S.pending = null; $("#pend").style.display = "none"; $("#m").placeholder = one(UI.ph);
+  send(image ? {text: t || one(UI.photo), image} : {text: t});
+};
+$("#m").addEventListener("keydown", e => { if (e.key === "Enter"){ e.preventDefault(); $("#send").click(); } });
+
+// ---------- photo ----------
+$("#img").addEventListener("change", e => {
+  const f = e.target.files[0]; if (!f) return;
+  const img = new Image(), url = URL.createObjectURL(f);
+  img.onload = () => {
+    const k = Math.min(1, 800 / Math.max(img.width, img.height));
+    const c = Object.assign(document.createElement("canvas"), {width: Math.round(img.width * k), height: Math.round(img.height * k)});
+    c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+    URL.revokeObjectURL(url); e.target.value = "";
+    S.pending = c.toDataURL("image/jpeg", 0.85);
+    $("#pend img").src = S.pending; $("#pend").style.display = "flex"; $("#m").placeholder = one(UI.pend);
+  };
+  img.src = url;
+});
+$("#unpend").onclick = () => { S.pending = null; $("#pend").style.display = "none"; $("#m").placeholder = one(UI.ph); };
+
+// ---------- Decider page ----------
+function addDecision(d){ S.decs.unshift(d); S.decs = S.decs.slice(0, 200); store.set("uz_decs", JSON.stringify(S.decs)); renderDecider(); }
+function renderDecider(){
+  const ds = S.decs, checks = ds.filter(x => x.stage === "check");
+  const ms = checks.map(x => x.decider_ms).filter(x => typeof x === "number").sort((a, b) => a - b);
+  const med = ms.length ? ms[Math.floor(ms.length / 2)] : null;
+  const n = f => ds.filter(f).length;
+  const tiles = [["s_checks", checks.length, ""], ["s_fixed", n(x => x.stage === "correction"), "hl"],
+    ["s_asked", n(x => (x.stage === "check" && x.verdict === "guide") || x.stage === "guess_stopped"), "ok"],
+    ["s_conf", n(x => x.verdict === "confirm"), ""], ["s_deny", n(x => x.verdict === "deny"), "bad"],
+    ["s_redir", n(x => x.verdict === "redirect"), ""], ["s_photo", n(x => x.stage === "photo"), ""],
+    ["s_ms", med === null ? "–" : (med / 1000).toFixed(1) + " s", ""]];
+  $("#stats").innerHTML = tiles.map(([k, v, c]) => `<div class="st ${c}"><b>${v}</b><span>${T(UI[k])}</span></div>`).join("");
+  $("#dcount").textContent = checks.length;
+  $("#how").innerHTML = [["message_kind", "request · greeting · off_topic · rule_override"], ["in_scope", "farming / weather?"],
+    ["district_grounded", "said, selected or saved?"], ["crop_grounded", "said, selected or saved?"]]
+    .map(([q, d]) => `<div><b>${q}</b>${d}</div>`).join("");
+  if (!ds.length){ $("#decs").innerHTML = `<div class="empty" id="t-empty">${T(UI.empty)}</div>`; return; }
+  $("#decs").innerHTML = ds.map(decHtml).join("");
+}
+function decHtml(d){
+  const title = d.stage === "photo" ? "📷 Photo check" : d.stage === "correction" ? `🛡️ Corrected ${d.fact}` :
+    d.stage === "guess_stopped" ? `✋ Stopped a guess` : `🔎 ${d.tool ? "Before " + d.tool : "Message check"}`;
+  const bad = k => ["rule_override", "off_topic"].includes(k);
+  const qs = Object.entries(d).filter(([k, v]) => typeof v === "number" && v >= 0 && v <= 1 && k !== "decider_ms");
+  return `<div class="dec ${d.stage === "correction" ? "corr" : ""}"><div class="top"><span>${esc(title)}</span><span class="v ${d.verdict}">${esc(d.verdict)}</span></div>
+    ${qs.map(([k, v]) => `<div class="q"><span>${esc(k)}</span><div class="track"><div class="fill ${(bad(k) ? v >= .35 : v < .5) ? "low" : ""}" style="width:${Math.round(v * 100)}%"></div></div><span>${v.toFixed(2)}</span></div>`).join("")}
+    ${d.message_kind ? `<div class="ms">message_kind: ${esc(d.message_kind)}</div>` : ""}
+    ${d.condition ? `<div class="ms">condition: ${esc(d.condition)}</div>` : ""}
+    ${d.llm_guess ? `<div class="ms">AI guessed: ${esc(d.llm_guess)}${d.fixed_to ? " → " + esc(d.fixed_to) : ""}</div>` : ""}
+    ${(d.missing || []).length ? `<div class="ms">missing: ${esc(d.missing.join(", "))}</div>` : ""}
+    ${d.fallback ? `<div class="ms">fallback: decider unreachable</div>` : ""}
+    ${typeof d.decider_ms === "number" ? `<div class="ms">decider_ms: ${d.decider_ms}</div>` : ""}</div>`;
+}
+
+// ---------- voice: Tamil or English in, read aloud out (only the chosen language) ----------
+function voiceFor(l){ const vs = ("speechSynthesis" in window) ? speechSynthesis.getVoices() : [];
+  return vs.find(v => v.lang.toLowerCase().startsWith(l + "-in")) || vs.find(v => v.lang.toLowerCase().startsWith(l)); }
+let audio = null;
+function speak(reply){
+  if (!reply) return;
+  const l = P(), text = one(reply);
+  if ("speechSynthesis" in window) speechSynthesis.cancel();
+  if (audio){ audio.pause(); audio = null; }
+  const v = voiceFor(l);
+  if (v || (l === "en" && "speechSynthesis" in window)){
+    const u = new SpeechSynthesisUtterance(text); if (v) u.voice = v; u.lang = l === "ta" ? "ta-IN" : "en-IN"; u.rate = 0.95;
+    speechSynthesis.speak(u); return;
+  }
+  fetch("/api/tts", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({text, lang: l})})
+    .then(r => r.ok ? r.blob() : Promise.reject(r.status))
+    .then(b => { audio = new Audio(URL.createObjectURL(b)); return audio.play(); })
+    .catch(() => push({k: "bot", reply: UI.notts}));
+}
+if ("speechSynthesis" in window) speechSynthesis.onvoiceschanged = () => {};
+
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+let rec = null, finalText = "", silence = null;
+$("#mic").onclick = () => !SR ? push({k: "bot", reply: UI.novoice}) : rec ? stopRec(true) : startRec();
+function startRec(){
+  finalText = ""; rec = new SR(); rec.lang = S.lang === "ta" ? "ta-IN" : "en-IN"; rec.continuous = true; rec.interimResults = true;
+  rec.onresult = e => {
+    let interim = "";
+    for (let i = e.resultIndex; i < e.results.length; i++){
+      if (e.results[i].isFinal) finalText += e.results[i][0].transcript + " "; else interim += e.results[i][0].transcript;
+    }
+    $("#live").textContent = "🎤 " + (finalText + interim).trim();
+    clearTimeout(silence); silence = setTimeout(() => stopRec(true), 3000);
+  };
+  rec.onerror = e => { if (e.error === "not-allowed") push({k: "bot", reply: UI.micno}); stopRec(false); };
+  rec.onend = () => { if (rec) { try { rec.start(); } catch (e) {} } };
+  rec.start(); $("#mic").classList.add("rec"); $("#t-mic").textContent = one(UI.stop); $("#live").textContent = "";
+  silence = setTimeout(() => stopRec(true), 8000);
+}
+function stopRec(submit){
+  clearTimeout(silence);
+  const r = rec; rec = null; if (r) { r.onend = null; try { r.stop(); } catch (e) {} }
+  $("#mic").classList.remove("rec"); $("#t-mic").textContent = one(UI.mic); $("#live").textContent = "";
+  const t = finalText.trim(); finalText = "";
+  if (submit && t){ S.voiceTurn = true; send({text: t}); }
+}
+applyLang();
+</script>
+</body>
+</html>

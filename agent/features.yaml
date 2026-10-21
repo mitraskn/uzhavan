@@ -1,0 +1,13 @@
+# Amazon Bedrock AgentCore features for Uzhavan. The farmer's district and crop are remembered in
+# the browser (localStorage), so neither AgentCore Memory nor Gateway is needed.
+memory:
+  enabled: false
+  name: agentmemory
+  strategies: [SEMANTIC, USER_PREFERENCE]
+  expiry_days: 30
+
+gateway:
+  enabled: false
+  name: tools
+  authorizer: AWS_IAM
+  targets: []

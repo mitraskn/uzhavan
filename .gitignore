@@ -22,3 +22,6 @@ dist/
 # scratch files from early experiments (not part of the project)
 test_api_calls.py
 test_strands_structure.py
+# public web app (scripts/deploy_web.py)
+deploy/web/deps.zip
+submission/web.json

@@ -3,7 +3,7 @@
 Submit before 23 October 2026, 11:59 p.m. PT on the hackathon page.
 
 - Repository: https://github.com/mitraskn/uzhavan
-- Video: <paste the public YouTube/Vimeo link after uploading submission/video/demo.mp4>
+- Video: https://youtu.be/flmXWHHdwiI
 - Article: <paste the AWS Builder Center link after publishing submission/article/>
 - Tags: #strands-decider-2b #guardrails
 - Agent on AWS: arn:aws:bedrock-agentcore:ap-southeast-2:736969242308:runtime/deciderkit_agent-9n1ReB3MER

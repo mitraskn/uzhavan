@@ -9,6 +9,7 @@ so every number in it comes from a real run. Keeps the kit credit.
 from __future__ import annotations
 
 import ast
+import json
 import re
 import sys
 from pathlib import Path
@@ -34,6 +35,9 @@ def main() -> None:
         f"An agent on AWS that hands one decision to **Strands Decider 2B** and the conversation to **Amazon Bedrock**. "
         f"Decision pattern: `{f['pattern_tag']}`. Tags: `#strands-decider-2b` `{f['pattern_tag']}`.",
         "",
+        *([f"- **Try it on your phone:** {json.loads((ROOT / 'submission/web.json').read_text())['url']} "
+            "(public web app on AWS Lambda, talking to the agent on AgentCore; 30 questions per hour per device)"]
+          if (ROOT / "submission/web.json").exists() else []),
         f"- Video: {f['video_url'] or '(add the YouTube/Vimeo link)'}",
         "- Article: (add the AWS Builder Center link)",
         f"- Deployed: {'Amazon Bedrock AgentCore Runtime, ' + dep['region'] if dep else 'run `./kit deploy`'}",

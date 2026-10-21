@@ -12,7 +12,7 @@ Built for the AWS Builder Center **Agent Experience Hackathon: Strands Decider**
 |---|---|
 | **Live app** (open it on your phone) | https://kzxepqk3sve5r2yh2yt3a6vyzm0mnnyv.lambda-url.ap-southeast-2.on.aws/ |
 | **Demo video** (2:44) | https://youtu.be/flmXWHHdwiI |
-| **Article** | (AWS Builder Center link, coming soon) |
+| **Article** (AWS Builder Center) | https://builder.aws.com/content/3L12jzePSALHLBWlQqwULrCP5uo/uzhavan-real-weather-advice-for-tamil-nadu-farmers-in-tamil-and-english-with-a-strands-decider-2b-guardrail-that-asks-instead-of-guessing |
 | **Agent on AWS** | Amazon Bedrock AgentCore Runtime, ap-southeast-2 |
 
 > The live app allows 30 questions per hour per device, to keep the cost low. The first answer can take about 20 seconds while AWS starts up.
@@ -146,7 +146,7 @@ Requirements: Python 3.10+, an AWS account with Amazon Bedrock access, a Strands
 **Mitra Sreekandan** (team Byte Solo), Computer Science and Engineering, Sri Krishna College of Technology, Coimbatore
 GitHub: [mitraskn](https://github.com/mitraskn)
 
-Built with help from AI coding assistants (Kiro, Claude).
+Built with Kiro and AI coding assistants.
 
 ---
 
